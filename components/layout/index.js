@@ -34,6 +34,7 @@ export default function Layout({ children, home }) {
               className={utilStyles.borderCircle}
               width={144}
               height={144}
+              alt=""
             />
             <h1 className={utilStyles.heading2xl}>{name}</h1>
           </>
@@ -46,6 +47,7 @@ export default function Layout({ children, home }) {
                 className={utilStyles.borderCircle}
                 width={108}
                 height={108}
+                alt=""
               />
             </Link>
             <h2 className={utilStyles.headingLg}>
