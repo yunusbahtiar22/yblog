@@ -4,7 +4,6 @@ import Date from "../../components/date";
 // import { getAllPostIds, getPostData } from "../../lib/posts";
 import { getAllPosts, getPostById } from "../../lib/posts";
 import { markdownToHtml } from "../../lib/markdown";
-import utilStyles from "../../styles/utils.module.css";
 
 export default function Post({ meta, content }) {
   return (
@@ -13,11 +12,11 @@ export default function Post({ meta, content }) {
         <title>{meta.title}</title>
       </Head>
       <article>
-        <h1 className={utilStyles.headingXl}>{meta.title}</h1>
-        <div className={utilStyles.lightText}>
+        <h1 className="text-2xl font-extrabold mb-2">{meta.title}</h1>
+        <div className="font-light text-gray-500 text-md mb-4">
           <Date dateString={meta.date} />
         </div>
-        <div dangerouslySetInnerHTML={{ __html: content }} />
+        <div className="prose" dangerouslySetInnerHTML={{ __html: content }} />
       </article>
     </Layout>
   );

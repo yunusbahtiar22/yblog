@@ -1,38 +1,24 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;800&display=swap");
+
+@tailwind base;
+
+@layer base {
+  html {
+    font-family: "Poppins", sans-serif;
+  }
+  h1 {
+    @apply text-2xl font-bold;
+  }
+  h2 {
+    @apply text-xl font-bold;
+  }
+  h3 {
+    @apply text-lg font-bold;
+  }
+  a {
+    @apply text-blue-500 hover:text-blue-600;
+  }
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-h1,
-h2,
-p,
-ul {
-  margin: 0;
-}
-
-ul {
-  padding: 0;
-  list-style: none;
-}
-
-button {
-  padding: 0.5rem 1rem;
-  font-weight: bold;
-}
+@tailwind components;
+@tailwind utilities;
