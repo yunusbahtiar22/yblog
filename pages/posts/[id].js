@@ -1,39 +1,48 @@
 import Head from "next/head";
 import Layout from "../../components/layout";
 import Date from "../../components/date";
-import { getAllPostIds, getPostData } from "../../lib/posts";
-import utilStyles from "../../styles/utils.module.css";
+// import { getAllPostIds, getPostData } from "../../lib/posts";
+import { getAllPosts, getPostById } from "../../lib/posts";
+import { markdownToHtml } from "../../lib/markdown";
 
-export default function Post({ postData }) {
+export default function Post({ meta, content }) {
   return (
     <Layout>
       <Head>
-        <title>{postData.title}</title>
+        <title>{meta.title}</title>
       </Head>
       <article>
-        <h1 className={utilStyles.headingXl}>{postData.title}</h1>
-        <div className={utilStyles.lightText}>
-          <Date dateString={postData.date} />
+        <h1 className="text-2xl font-extrabold mb-2">{meta.title}</h1>
+        <div className="font-light text-gray-500 text-md mb-4">
+          <Date dateString={meta.date} />
         </div>
-        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+        <div className="prose" dangerouslySetInnerHTML={{ __html: content }} />
       </article>
     </Layout>
   );
 }
 
 export async function getStaticPaths() {
-  const paths = getAllPostIds();
+  const posts = getAllPosts();
   return {
-    paths,
+    paths: posts.map(({ id }) => {
+      return {
+        params: {
+          id,
+        },
+      };
+    }),
     fallback: false,
   };
 }
 
 export async function getStaticProps({ params }) {
-  const postData = await getPostData(params.id);
+  const post = getPostById(params.id);
+  const content = await markdownToHtml(post.content);
   return {
     props: {
-      postData,
+      ...post,
+      content,
     },
   };
 }
