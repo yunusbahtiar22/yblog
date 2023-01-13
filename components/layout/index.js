@@ -1,6 +1,9 @@
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
+import { Switch } from "@headlessui/react";
+import { useContext } from "react";
+import { Context } from "../../context";
 
 const name = "Yunus Bahtiar";
 const githubURL = "https://github.com/yunusbahtiar22";
@@ -8,6 +11,7 @@ const twitterURL = "https://twitter.com/amanofordinary";
 export const siteTitle = "Yunus Blog";
 
 export default function Layout({ children, home }) {
+  const [darkMode, toggleDarkMode] = useContext(Context);
   return (
     <div className="w-100 md:w-[65%] mx-auto px-4 pb-7">
       <Head>
@@ -26,12 +30,27 @@ export default function Layout({ children, home }) {
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <header>
-        <nav className="h-[4rem] p-4 pt-5">
+        <nav className="h-[4rem] p-4 pt-5 flex justify-between items-center">
           <Link
             href="/"
-            className="text-2xl font-extrabold leading-5 hover:text-blue-900">
+            className="text-2xl font-extrabold leading-5 hover:text-blue-900"
+          >
             yBlog
           </Link>
+          <Switch
+            checked={darkMode}
+            onChange={toggleDarkMode}
+            className={`bg-slate-400 relative inline-flex items-center h-[38px] w-[74px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
+          >
+            <span className="sr-only">Use setting</span>
+            <span
+              aria-hidden="true"
+              className={`${darkMode ? "translate-x-9" : "translate-x-0"}
+            pointer-events-none inline-block h-[34px] w-[34px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out z-10`}
+            />
+            <span className="h-[42px] absolute left-[7px] z-9 pt-2">🌛</span>{" "}
+            <span className="h-[42px] absolute right-[7px] z-9 pt-2">🌞</span>
+          </Switch>
         </nav>
         {home && (
           <div className="flex gap-4 py-6">
@@ -65,7 +84,8 @@ export default function Layout({ children, home }) {
           <div className="mt-4">
             <Link
               href="/"
-              className="text-2xl font-extrabold leading-5 hover:text-blue-900">
+              className="text-2xl font-extrabold leading-5 hover:text-blue-900"
+            >
               yBlog
             </Link>
             <div className="flex gap-4 pt-4">
