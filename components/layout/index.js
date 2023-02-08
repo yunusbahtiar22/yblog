@@ -1,9 +1,9 @@
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
-import { Switch } from "@headlessui/react";
 import { useContext } from "react";
 import { Context } from "../../context";
+import { MoonIcon, SunIcon } from "../icons";
 
 const name = "Yunus Bahtiar";
 const githubURL = "https://github.com/yunusbahtiar22";
@@ -37,20 +37,14 @@ export default function Layout({ children, home }) {
           >
             yBlog
           </Link>
-          <Switch
-            checked={darkMode}
-            onChange={toggleDarkMode}
-            className={`bg-slate-400 relative inline-flex items-center h-[38px] w-[74px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
+          <button
+            className="bg-inherit text-gray-600 font-lg p-2 rounded-md border border-geay-300 focus:ring-2 focus:ring-gray-300 focus:ring-offset-2 focus:outline-none dark:focus:ring-offset-gray-900"
+            onClick={() => {
+              toggleDarkMode(!darkMode);
+            }}
           >
-            <span className="sr-only">Use setting</span>
-            <span
-              aria-hidden="true"
-              className={`${darkMode ? "translate-x-9" : "translate-x-0"}
-            pointer-events-none inline-block h-[34px] w-[34px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out z-10`}
-            />
-            <span className="h-[42px] absolute left-[7px] z-9 pt-2">🌛</span>{" "}
-            <span className="h-[42px] absolute right-[7px] z-9 pt-2">🌞</span>
-          </Switch>
+            {darkMode ? <SunIcon /> : <MoonIcon />}
+          </button>
         </nav>
         {home && (
           <div className="flex gap-4 py-6">
