@@ -1,6 +1,9 @@
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
+import { useContext } from "react";
+import { Context } from "../../context";
+import { MoonIcon, SunIcon } from "../icons";
 
 const name = "Yunus Bahtiar";
 const githubURL = "https://github.com/yunusbahtiar22";
@@ -8,6 +11,7 @@ const twitterURL = "https://twitter.com/amanofordinary";
 export const siteTitle = "Yunus Blog";
 
 export default function Layout({ children, home }) {
+  const [darkMode, toggleDarkMode] = useContext(Context);
   return (
     <div className="w-100 md:w-[65%] mx-auto px-4 pb-7">
       <Head>
@@ -26,12 +30,21 @@ export default function Layout({ children, home }) {
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <header>
-        <nav className="h-[4rem] p-4 pt-5">
+        <nav className="h-[4rem] p-4 pt-5 flex justify-between items-center">
           <Link
             href="/"
-            className="text-2xl font-extrabold leading-5 hover:text-blue-900">
+            className="text-2xl font-extrabold leading-5 hover:text-blue-900"
+          >
             yBlog
           </Link>
+          <button
+            className="bg-inherit text-gray-600 font-lg p-2 rounded-md border border-geay-300 focus:ring-2 focus:ring-gray-300 focus:ring-offset-2 focus:outline-none dark:focus:ring-offset-gray-900"
+            onClick={() => {
+              toggleDarkMode(!darkMode);
+            }}
+          >
+            {darkMode ? <SunIcon /> : <MoonIcon />}
+          </button>
         </nav>
         {home && (
           <div className="flex gap-4 py-6">
@@ -65,7 +78,8 @@ export default function Layout({ children, home }) {
           <div className="mt-4">
             <Link
               href="/"
-              className="text-2xl font-extrabold leading-5 hover:text-blue-900">
+              className="text-2xl font-extrabold leading-5 hover:text-blue-900"
+            >
               yBlog
             </Link>
             <div className="flex gap-4 pt-4">

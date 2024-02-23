@@ -16,7 +16,7 @@ export default function Post({ meta, content }) {
         <div className="font-light text-gray-500 text-md mb-4">
           <Date dateString={meta.date} />
         </div>
-        <div className="prose" dangerouslySetInnerHTML={{ __html: content }} />
+        <div className="prose dark:prose-invert" dangerouslySetInnerHTML={{ __html: content }} />
       </article>
     </Layout>
   );

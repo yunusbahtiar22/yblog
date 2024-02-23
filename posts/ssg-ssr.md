@@ -22,3 +22,23 @@ In that case, you can use **Server-Side Rendering**. It will be slower, but the 
 // test.js
 console.log("hello world");
 ```
+
+```ts twoslash
+
+interface Person {
+  name: string;
+  age: number;
+}
+
+const number = 70;
+//      ^?
+
+const person1: Person = {
+  name: "bob",
+  age: 28,
+}
+
+// @noErrors
+person1.n
+//       ^|
+```
