@@ -41,4 +41,7 @@ const person1: Person = {
 // @noErrors
 person1.n
 //       ^|
+
+person1
+// ^?
 ```
