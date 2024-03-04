@@ -4,17 +4,43 @@ import Layout, { siteTitle } from "../components/layout";
 import Date from "../components/date";
 import utilStyles from "../styles/utils.module.css";
 import { getAllPosts } from "../lib/posts";
+import Markdown from "react-markdown";
+import { octokit } from "../lib/posts";
 
 export async function getStaticProps() {
   const allPostsData = getAllPosts();
+  const raw = await octokit.rest.repos.getContent({
+    owner: "yunusbahtiar22",
+    repo: "yblog",
+    path: "README.md",
+    mediaType: {
+      format: "raw"
+    }
+  })
+  const dirs = await octokit.rest.repos.getContent({
+    owner: "yunusbahtiar22",
+    repo: "yblog",
+    mediaType: {
+      format: "raw"
+    }
+  })
+  const { data: content } = JSON.parse(JSON.stringify(raw))
+  const { data: directories } = JSON.parse(JSON.stringify(dirs))
+  directories
+    .filter(({ type }) => type === "dir")
+    .forEach(({ name }, idx) => {
+      console.log(`${idx}. ${name}`)
+    });
+
   return {
     props: {
       allPostsData,
+      content
     },
   };
 }
 
-export default function Home({ allPostsData }) {
+export default function Home({ allPostsData, content }) {
   return (
     <Layout home>
       <Head>
@@ -35,6 +61,11 @@ export default function Home({ allPostsData }) {
             </li>
           ))}
         </ul>
+      </section>
+      <section>
+        <Markdown>
+          {content}
+        </Markdown>
       </section>
     </Layout>
   );
